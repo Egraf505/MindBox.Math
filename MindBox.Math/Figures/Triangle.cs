@@ -3,7 +3,7 @@ using MindBox.Geometry.Exceptions;
 
 namespace MindBox.Geometry.Figures
 {
-    internal class Triangle : Figure
+    public class Triangle : Figure
     {
         private double _firstSide;
         private double _secondSide;
@@ -13,7 +13,7 @@ namespace MindBox.Geometry.Figures
 
         public Triangle(double firstSide, double secondSide, double thirdSide)
         {
-            if (IsRectangular())
+            if (firstSide <= 0 || secondSide <= 0 || thirdSide <= 0)
                 throw new TriangleArgumentException();
 
             _firstSide = firstSide;
@@ -23,14 +23,17 @@ namespace MindBox.Geometry.Figures
             _halfPerimeter = (_firstSide + _secondSide + _thirdSide) / 2;
         }
 
-        private bool IsRectangular()
+        public bool IsRectangular
         {
-            if ((_firstSide * _firstSide + _secondSide * _secondSide == _thirdSide * _thirdSide)
-                || (_firstSide * _firstSide + _thirdSide * _thirdSide == _secondSide * _secondSide)
-                || (_thirdSide * _thirdSide + _secondSide * _secondSide == _firstSide * _firstSide))
-                return true;
+            get
+            {
+                if ((_firstSide * _firstSide + _secondSide * _secondSide == _thirdSide * _thirdSide)
+                    || (_firstSide * _firstSide + _thirdSide * _thirdSide == _secondSide * _secondSide)
+                    || (_thirdSide * _thirdSide + _secondSide * _secondSide == _firstSide * _firstSide))
+                    return true;
 
                 return false;
+            }
         }
 
         public override double GetArea() =>        
